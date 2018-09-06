@@ -1,16 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class VideoSelector : MonoBehaviour
 {
-    List<VidUnit> lista;
+    public List<VidUnit> lista;
     public GameObject imageBlocker;
 
-    private void Start()
+    private void Awake()
     {
-         lista = JSONReader.VideosList();
-        //ReturnCategories();
+        lista = JSONReader.VideosList();
     }
 
     public List<string> ReturnCategories()
@@ -24,6 +24,12 @@ public class VideoSelector : MonoBehaviour
         ls.Reverse();
         return ls;
     }
+    public List<VidUnit> ReturnCategoriesNR()
+    {
+        List<VidUnit> lst = lista.GroupBy(x => x.CATEGORIA).Select(y => y.First()).Where(y => !string.IsNullOrEmpty(y.CATEGORIA)).ToList();
+        lst.Reverse();
+        return lst;
+    }
 
     public List<string> ReturnYears()
     {
@@ -33,21 +39,24 @@ public class VideoSelector : MonoBehaviour
                 ls.Add(item.ANO);
         ls.Sort();
         ls.Reverse();
-
         return ls;
+    }
+
+    public List<VidUnit> ReturnYearsNR()
+    {
+        List<VidUnit> lst = lista.GroupBy(x => x.ANO).Select(y => y.First()).Where(y=>!string.IsNullOrEmpty(y.ANO)).ToList(); 
+        lst.Reverse();
+        return lst;
     }
 
     public List<VidUnit> ReturnByCategorie(string categorie)
     {
         List<VidUnit> ls = new List<VidUnit>();
 
-        foreach (VidUnit item in lista)
-        {
+        foreach (VidUnit item in lista)        
             if (item.CATEGORIA == categorie)            
                 ls.Add(item);
-                //Debug.Log(item.TITULO + " / " + item.ANO);
-                       
-        }
+
         return (ls);
     }
 
@@ -68,6 +77,9 @@ public class VideoSelector : MonoBehaviour
 
         //Debug.Log("Hash: " + hash[0] + " / " + hash[1] + " / " + hash[2]);
 
+        ls = ReturnByCategorie(hash[1]);
+
+        /*
         switch (hash[0])
         {
             case "Categorie":
@@ -77,9 +89,11 @@ public class VideoSelector : MonoBehaviour
             case "Edition":
                 ls = ReturnByYear(hash[1]);
                 break;
+
             default:
                 break;
         }
+        */
 
         foreach (VidUnit item in ls)        
             if (item.CATEGORIA == hash[1] && item.ANO == hash[2])

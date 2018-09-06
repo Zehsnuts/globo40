@@ -97,7 +97,6 @@ public class VideoInfoScreen : MonoBehaviour
 
     public void ChangeThumbNail(string hash)
     {
-        Debug.Log(thumbNail.GetComponent<Image>().sprite);
         thumbNail.GetComponent<Image>().sprite = Resources.Load<Sprite>("Thumbnails/" + hash) as Sprite;
         ShowThumbnail();
     }
