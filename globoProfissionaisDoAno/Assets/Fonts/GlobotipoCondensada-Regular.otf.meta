@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 0ee72e6c2f7931c4896bfdf4aec1ec08
+timeCreated: 1535639725
+licenseType: Free
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Globotipo Condensada
+  fontNames:
+  - Globotipo Condensada
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

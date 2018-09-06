@@ -1,0 +1,37 @@
+fileFormatVersion: 2
+guid: e0eb2b6328fce664787e90c5ce03ce02
+timeCreated: 1535639730
+licenseType: Free
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Globotipo Texto
+  fontNames:
+  - Globotipo Texto
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 6bc4fc70d8cd5cd4ba6044d81603301a, type: 3}
+  - {fileID: 12800000, guid: 325e2ba18dd0ac54598f39e290f21f4a, type: 3}
+  - {fileID: 12800000, guid: 8f94d4e13bcd5734784e54fe65b6b5b8, type: 3}
+  - {fileID: 12800000, guid: 723ca642d8a28644db5708b07ded5f81, type: 3}
+  - {fileID: 12800000, guid: 71651e2454a0fe64db5f4a61056c0c65, type: 3}
+  - {fileID: 12800000, guid: b4b63f74bea8d834d93843d65a794cec, type: 3}
+  - {fileID: 12800000, guid: 805a9d17c12eed04498ec78ebe2ae877, type: 3}
+  - {fileID: 12800000, guid: 0e65efc8163f97e44bc0e5ce87d0bf48, type: 3}
+  - {fileID: 12800000, guid: d4a5f14a83a657c4c81b146bded8e81d, type: 3}
+  - {fileID: 12800000, guid: 06eaecda3e675344fbcaeb70c93bb53a, type: 3}
+  - {fileID: 12800000, guid: 22cdeefb871e2eb47baea74d61f97582, type: 3}
+  - {fileID: 12800000, guid: 34fe86acfb6e1f44bb6212a2ca20cb9d, type: 3}
+  - {fileID: 12800000, guid: 7641e6dc47a57914fa830fb777851148, type: 3}
+  - {fileID: 12800000, guid: 862c532dc8d39424cb1703a689382b59, type: 3}
+  - {fileID: 12800000, guid: d24f73adef685d1479c4a7525e1266c8, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

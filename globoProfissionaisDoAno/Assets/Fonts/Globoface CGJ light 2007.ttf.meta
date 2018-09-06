@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 6530554ed39336a43a92a844fdb9db6e
+timeCreated: 1535639727
+licenseType: Free
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Globoface CGJ light 2007
+  fontNames:
+  - Globoface CGJ light 2007
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

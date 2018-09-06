@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 9d4424713d96fa14cbad1d2e030cb72a
+timeCreated: 1535639729
+licenseType: Free
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Globoface 2002
+  fontNames:
+  - Globoface 2002
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

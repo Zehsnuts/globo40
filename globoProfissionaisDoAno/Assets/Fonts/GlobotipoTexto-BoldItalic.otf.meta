@@ -1,0 +1,28 @@
+fileFormatVersion: 2
+guid: 71651e2454a0fe64db5f4a61056c0c65
+timeCreated: 1535639728
+licenseType: Free
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Globotipo Texto
+  fontNames:
+  - Globotipo Texto
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 6bc4fc70d8cd5cd4ba6044d81603301a, type: 3}
+  - {fileID: 12800000, guid: 325e2ba18dd0ac54598f39e290f21f4a, type: 3}
+  - {fileID: 12800000, guid: 0e65efc8163f97e44bc0e5ce87d0bf48, type: 3}
+  - {fileID: 12800000, guid: 06eaecda3e675344fbcaeb70c93bb53a, type: 3}
+  - {fileID: 12800000, guid: 22cdeefb871e2eb47baea74d61f97582, type: 3}
+  - {fileID: 12800000, guid: 34fe86acfb6e1f44bb6212a2ca20cb9d, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
