@@ -29,6 +29,17 @@ public class StreamVideo : MonoBehaviour
     public float barValue;
 
 
+    #region Video Controller
+
+    public bool IsPlaying { get { return videoPlayer.isPlaying; } }
+    public bool IsLooping { get { return videoPlayer.isLooping; } }
+    public bool IsPrepared { get { return videoPlayer.isPrepared; } }
+    public double Time { get { return videoPlayer.time; } }
+    public ulong Duration { get { return (ulong)(videoPlayer.frameCount/videoPlayer.frameRate); } }
+    public double NTime { get { return Time/Duration; } }
+
+    #endregion
+
     // Use this for initialization
     void Start()
     {
@@ -163,9 +174,13 @@ public class StreamVideo : MonoBehaviour
     public Transform endPoint;
     public Transform playHead;
 
-    public void UpdateVideoPosition(float vl)
+    public void UpdateVideoPosition(Scrollbar vl)
     {
-        Debug.Log(barValue + " / " + vl);
+        var v = Mathf.Clamp(vl.value, 0, 1);
+
+        SetCurrentTimeUI();
+
+        videoPlayer.time = v*Duration;
     }
 
     public void MovePlayhead(double playedFraction)
