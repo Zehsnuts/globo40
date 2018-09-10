@@ -75,25 +75,7 @@ public class VideoSelector : MonoBehaviour
     {
         List<VidUnit> ls = new List<VidUnit>();
 
-        //Debug.Log("Hash: " + hash[0] + " / " + hash[1] + " / " + hash[2]);
-
         ls = ReturnByCategorie(hash[1]);
-
-        /*
-        switch (hash[0])
-        {
-            case "Categorie":
-                ls = ReturnByCategorie(hash[1]);
-                break;
-
-            case "Edition":
-                ls = ReturnByYear(hash[1]);
-                break;
-
-            default:
-                break;
-        }
-        */
 
         foreach (VidUnit item in ls)        
             if (item.CATEGORIA == hash[1] && item.ANO == hash[2])

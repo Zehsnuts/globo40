@@ -72,9 +72,11 @@ public class ExpandableMenu : MonoBehaviour
 
     private void Fill2nd(MenuElement mEle)
     {
+        Debug.Log(mEle.name + " / " + mEle.isOpen);
+
         if (mEle.isOpen)
-        {
-            mEle.isOpen = false;
+        {            
+            mEle.isOpen = false;        
             return;
         }
 
@@ -82,15 +84,13 @@ public class ExpandableMenu : MonoBehaviour
 
         List<VidUnit> ls = new List<VidUnit>();
 
-        //Remover
-        string[] nm = new string[] { }; //{ "   > INSTITUCIONAL", "   > REGIONAL"};
 
         if (mEle.name.Contains("Categorie"))
         {
-            nm = FindObjectOfType<VideoSelector>().ReturnCategories().ToArray();
+            ls = FindObjectOfType<VideoSelector>().ReturnCategoriesNR();
 
-            for (int i = 0; i < nm.Length; i++)
-                CreatePreFab("Prefabs/2nd_", "     > " + nm[i], nextIndex, list2nd, true, "2nd_" + nm[i]);
+            for (int i = 0; i < ls.Count; i++)
+                CreatePreFab("Prefabs/2nd_", "     > "+ ls[i].CATEGORIA, nextIndex, list2nd, true, "2nd_" + ls[i].CATEGORIA);
         }
         else if (mEle.name.Contains("Edition"))
         {
