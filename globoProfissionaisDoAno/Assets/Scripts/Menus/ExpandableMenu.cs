@@ -72,8 +72,6 @@ public class ExpandableMenu : MonoBehaviour
 
     private void Fill2nd(MenuElement mEle)
     {
-        Debug.Log(mEle.name + " / " + mEle.isOpen);
-
         if (mEle.isOpen)
         {            
             mEle.isOpen = false;        
@@ -84,20 +82,19 @@ public class ExpandableMenu : MonoBehaviour
 
         List<VidUnit> ls = new List<VidUnit>();
 
-
         if (mEle.name.Contains("Categorie"))
         {
             ls = FindObjectOfType<VideoSelector>().ReturnCategoriesNR();
 
             for (int i = 0; i < ls.Count; i++)
-                CreatePreFab("Prefabs/2nd_", "     > "+ ls[i].CATEGORIA, nextIndex, list2nd, true, "2nd_" + ls[i].CATEGORIA);
+                CreatePreFab("Prefabs/2nd_", "    > "+ ls[i].CATEGORIA, nextIndex, list2nd, true, "2nd_" + ls[i].CATEGORIA);
         }
         else if (mEle.name.Contains("Edition"))
         {
-            CreatePreFab("Prefabs/2nd_", YEARMENUHEADER, nextIndex, list2nd, true);
+            CreatePreFab("Prefabs/2nd_", YEARMENUHEADER, ref nextIndex, list2nd, true);
             ls = FindObjectOfType<VideoSelector>().ReturnYearsNR();
             for (int i = 0; i < ls.Count; i++)
-                CreatePreFab("Prefabs/2nd_", "     > " + (ls[i].ED) + "ª - " + ls[i].ANO, nextIndex, list2nd, true, "2nd_" + ls[i].ANO);
+                CreatePreFab("Prefabs/2nd_", "    > " + (ls[i].ED) + "ª - " + ls[i].ANO, nextIndex, list2nd, true, "2nd_" + ls[i].ANO);
         }            
             
         mEle.isOpen = true;
@@ -105,8 +102,6 @@ public class ExpandableMenu : MonoBehaviour
 
     private void Fill3rd(MenuElement mEle)
     {
-        //Debug.Log(mEle.name);
-
         if (mEle.isOpen)
         {
             mEle.isOpen = false;
@@ -127,19 +122,6 @@ public class ExpandableMenu : MonoBehaviour
             mEle.isOpen = true;
             return;
         }
-
-        /*
-        for (int i = 1; i < 40; i++)
-            {
-                var b = Instantiate(Resources.Load("Prefabs/3rd_text"), childContentBox) as GameObject;
-                b.name = b.GetComponent<Text>().text = (1978 + i).ToString();
-                b.GetComponent<Text>().text = "         " + i.ToString("00") +" - " + b.GetComponent<Text>().text;
-                b.transform.SetSiblingIndex(nextIndex);
-                nextIndex++;
-                list3rd.Add(b);
-            Debug.Log(b.name);
-            }
-            */
     }
 
     private void FillYears(string year, MenuElement mEle)
@@ -186,7 +168,7 @@ public class ExpandableMenu : MonoBehaviour
     {
         var c = Instantiate(Resources.Load(path), childContentBox) as GameObject;
         c.name = name;
-        c.GetComponent<Text>().text = text;
+        c.GetComponentInChildren<Text>().text = text;
         c.GetComponent<Button>().interactable = interactable;
         c.transform.SetSiblingIndex(nextIndex);
         list.Add(c);
@@ -196,7 +178,7 @@ public class ExpandableMenu : MonoBehaviour
     {
         var c = Instantiate(Resources.Load(path), childContentBox) as GameObject;
         c.name = name;
-        c.GetComponent<Text>().text = text;
+        c.GetComponentInChildren<Text>().text = text;
         c.GetComponent<Button>().interactable = interactable;
         c.transform.SetSiblingIndex(nextIndex);
         nextIndex++;

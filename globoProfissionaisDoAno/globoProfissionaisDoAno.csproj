@@ -232,6 +232,7 @@
     <Compile Include="Assets\Scripts\MousePointer.cs" />
     <Compile Include="Assets\Scripts\SceneManager.cs" />
     <Compile Include="Assets\Scripts\VideoPlayer\InfoBox.cs" />
+    <Compile Include="Assets\Scripts\VideoPlayer\PlayerFade.cs" />
     <Compile Include="Assets\Scripts\VideoPlayer\StreamVideo.cs" />
     <Compile Include="Assets\Scripts\VideoPlayer\VideoInfoScreen.cs" />
     <Compile Include="Assets\Scripts\VideoPlayer\VideoSelector.cs" />

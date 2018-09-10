@@ -18,12 +18,12 @@ public class MenuElement : MonoBehaviour
 
     public void OnMouseEnter()
     {
-        FindObjectOfType<MousePointer>().OnMouseEnter();
+        //FindObjectOfType<MousePointer>().OnMouseEnter();
     }
 
     public void OnMouseExit()
     {
-        FindObjectOfType<MousePointer>().OnMouseExit();
+        //FindObjectOfType<MousePointer>().OnMouseExit();
     }
 
 }
