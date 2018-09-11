@@ -16,7 +16,10 @@ public class ExpandableMenu : MonoBehaviour
 
     private static string YEARMENUHEADER = "          ED. - ANO";
 
-    MenuElement lastMenuElement;
+    //MenuElement lastMenuElement;
+    MenuElement last1stMenuElement;
+    MenuElement last2ndMenuElement;
+    MenuElement last3rdMenuElement;
 
     //Pressed button
     public void InterpretButton(MenuElement mEle)
@@ -27,25 +30,47 @@ public class ExpandableMenu : MonoBehaviour
     //Text that has been clicked is passed here. hashString works to find videos/thumbnails but also as history of clicked buttons.
     private void SwitchWithName(MenuElement tr)
     {
-        if (lastMenuElement != null && lastMenuElement != tr)
-            lastMenuElement.isOpen = false;
-
         string[] str = tr.name.Split("_"[0]);
 
         switch (str[0])
         {
-            case "1st":                
+            case "1st":
+                if (last1stMenuElement == null)
+                    last1stMenuElement = tr;
+                else if (last1stMenuElement != tr)
+                {
+                    last1stMenuElement.CloseButton();
+                    last1stMenuElement = tr;
+                }
                 hashString[0] = "";
                 hashString[1] = "";
                 hashString[2] = "";
                 ClearList(list2nd);
-                ClearList(list3rd);                
+                ClearList(list3rd);
+                if (tr.isOpen)
+                {
+                    tr.CloseButton();
+                    return;
+                }
                 Fill2nd(tr);
                 hashString[0]= str[1];
                 break;
 
             case "2nd":
+                if (last2ndMenuElement == null)
+                    last2ndMenuElement = tr;
+                else if (last2ndMenuElement != tr)
+                {
+                    last2ndMenuElement.CloseButton();
+                    last2ndMenuElement = tr;
+                }
+
                 ClearList(list3rd);
+                if (tr.isOpen)
+                {
+                    tr.CloseButton();
+                    return;
+                }
                 Fill3rd(tr);
                 if (hashString[0] == "Categorie")                
                     hashString[1] = str[1];                
@@ -59,7 +84,7 @@ public class ExpandableMenu : MonoBehaviour
                     hashString[2] = str[1];                
                 else                
                     hashString[1] = str[1];
-
+                FindObjectOfType<StreamVideo>().nextVideo.Clear();
                 FindObjectOfType<VideoSelector>().FindVideoByHash(hashString);
                 break;
 
@@ -67,16 +92,11 @@ public class ExpandableMenu : MonoBehaviour
                 break;
         }
 
-        lastMenuElement = tr;
+        tr.OpenButton();
     }
 
     private void Fill2nd(MenuElement mEle)
     {
-        if (mEle.isOpen)
-        {            
-            mEle.isOpen = false;        
-            return;
-        }
 
         int nextIndex = mEle.transform.GetSiblingIndex() + 1;
 
@@ -87,14 +107,14 @@ public class ExpandableMenu : MonoBehaviour
             ls = FindObjectOfType<VideoSelector>().ReturnCategoriesNR();
 
             for (int i = 0; i < ls.Count; i++)
-                CreatePreFab("Prefabs/2nd_", "    > "+ ls[i].CATEGORIA, nextIndex, list2nd, true, "2nd_" + ls[i].CATEGORIA);
+                CreatePreFab("Prefabs/2nd_", ""+ ls[i].CATEGORIA, nextIndex, list2nd, true, "2nd_" + ls[i].CATEGORIA);
         }
         else if (mEle.name.Contains("Edition"))
         {
-            CreatePreFab("Prefabs/2nd_", YEARMENUHEADER, ref nextIndex, list2nd, true);
+            CreatePreFab("Prefabs/(OLD)2nd_", YEARMENUHEADER, ref nextIndex, list2nd, true);
             ls = FindObjectOfType<VideoSelector>().ReturnYearsNR();
             for (int i = 0; i < ls.Count; i++)
-                CreatePreFab("Prefabs/2nd_", "    > " + (ls[i].ED) + "ª - " + ls[i].ANO, nextIndex, list2nd, true, "2nd_" + ls[i].ANO);
+                CreatePreFab("Prefabs/2nd_", "" + (ls[i].ED) + "ª - " + ls[i].ANO, nextIndex, list2nd, true, "2nd_" + ls[i].ANO);
         }            
             
         mEle.isOpen = true;
@@ -106,9 +126,9 @@ public class ExpandableMenu : MonoBehaviour
         {
             mEle.isOpen = false;
             return;
-        }
+        }        
 
-        int nextIndex = mEle.transform.GetSiblingIndex();
+        //int nextIndex = mEle.transform.GetSiblingIndex();
 
         if (mEle.name.Contains("20") || mEle.name.Contains("19"))
         {
@@ -130,17 +150,17 @@ public class ExpandableMenu : MonoBehaviour
 
         int nextIndex = mEle.transform.GetSiblingIndex() + 1;
 
-        CreatePreFab("Prefabs/2rd_", YEARMENUHEADER, ref nextIndex, list2nd, false);
+        CreatePreFab("Prefabs/(OLD)2nd_", YEARMENUHEADER, ref nextIndex, list2nd, false);
 
         for (int i = 0; i < ls.Count; i++)
             CreatePreFab("Prefabs/2rd_", "      " + (ls[i].ED) + "ª - " + ls[i].ANO, ref nextIndex, list2nd, true, ("2nd_" + ls[i].ANO));
 
-        CreatePreFab("Prefabs/2rd_", "", ref nextIndex, list2nd, false);
+        CreatePreFab("Prefabs/(OLD)2nd_", "", ref nextIndex, list2nd, false);
     }
 
-    private void FillYearsByCategorie(string year, MenuElement mEle)
+    private void FillYearsByCategorie(string categorie, MenuElement mEle)
     {
-        List<VidUnit> ls = FindObjectOfType<VideoSelector>().ReturnByCategorie(year);
+        List<VidUnit> ls = FindObjectOfType<VideoSelector>().ReturnByCategorie(categorie);
 
         int nextIndex = mEle.transform.GetSiblingIndex() + 1;
 

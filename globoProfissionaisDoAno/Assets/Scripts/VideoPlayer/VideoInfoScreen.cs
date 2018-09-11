@@ -7,11 +7,11 @@ public class VideoInfoScreen : MonoBehaviour
 {
     public RectTransform thumbNail;
 
-    public Text title;
-    public Text yearCategorie;
-    public Text dirCri;
-    public Text dir;
-    public Text cri;
+    public Transform titleContentBox;
+    public RectTransform titleRect;
+    public RectTransform yearRect;
+    public RectTransform direcaoRect;
+    public RectTransform criacaoRect;
 
     public Transform infoContentBox;
 
@@ -38,14 +38,18 @@ public class VideoInfoScreen : MonoBehaviour
 
     public List<GameObject> infoBoxesList = new List<GameObject>();
 
+    public List<GameObject> extraInfo = new List<GameObject>();
+
     public void RefreshTitleScreen(VidUnit vid, string hashText)
     {
         if (infoBoxesList.Count > 0)
-            for (int i = infoBoxesList.Count - 1; i > 0; i--)
+            for (int i = infoBoxesList.Count - 1; i >= 0; i--)
                 Destroy(infoBoxesList[i]);
 
-        this.direcao = vid.DIRECAO;
-        this.criacao = vid.CRIACAO;
+        if (extraInfo.Count > 0)
+            for (int i = extraInfo.Count - 1; i >= 0; i--)
+                Destroy(extraInfo[i]);
+
         this.vidTitle = vid.TITULO;
         this.categorie = vid.CATEGORIA;
         this.year = vid.ANO;
@@ -56,10 +60,8 @@ public class VideoInfoScreen : MonoBehaviour
         this.produtoraSom = vid.PRODUTORA_DE_SOM;
         this.posProducao = vid.POS_PRODUCAO;
 
-        title.text = "   " +this.vidTitle;
-        dir.text = "   " + this.direcao;
-        cri.text = "   " + this.criacao;
-        yearCategorie.text = "  " + this.year + " - " + this.categorie;
+        //title.text = "   " +this.vidTitle;
+        //yearCategorie.text = "  " + this.year + " - " + this.categorie;
 
         if (!string.IsNullOrEmpty(this.anunciante))
             CreateInfoPrefabs(this.anunciante, "ANUNCIANTE");
@@ -77,6 +79,33 @@ public class VideoInfoScreen : MonoBehaviour
             CreateInfoPrefabs(this.posProducao, "PÓS-PRODUÇÃO");
 
         ChangeThumbNail(hashText);
+
+        CreateExtraInfo();
+    }
+
+    void CreateExtraInfo()
+    {
+        List<VidUnit> lst = FindObjectOfType<VideoSelector>().ReturnDirecaoByTitle(vidTitle);
+
+        for (int i = 0; i < lst.Count; i++)        
+            ExtraInfoPrefab(lst[i].DIRECAO, direcaoRect);
+
+        lst = FindObjectOfType<VideoSelector>().ReturnCriacaoByTitle(vidTitle);
+        for (int i = 0; i < lst.Count; i++)
+            ExtraInfoPrefab(lst[i].CRIACAO, criacaoRect);
+
+        ExtraInfoPrefab(vidTitle, titleRect);
+        ExtraInfoPrefab(year + " - " + categorie, yearRect);
+    }
+
+    GameObject ExtraInfoPrefab(string text, Transform parent)
+    {
+        GameObject b = Instantiate(Resources.Load("Prefabs/Name"), titleContentBox) as GameObject;
+        b.GetComponentInChildren<Text>().text = text ;
+        b.transform.SetSiblingIndex(parent.GetSiblingIndex()+1);
+        extraInfo.Add(b);
+        //Debug.Log(text);
+        return b;
     }
 
     void CreateInfoPrefabs(string st, string title)

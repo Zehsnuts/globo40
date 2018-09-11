@@ -5,22 +5,24 @@ using UnityEngine.UI;
 
 public class FadeInFadeOut : MonoBehaviour
 {
-    public Image image; 
+    public Image image;
+
+    public float secondsToWait;
 
     void Start()
     {
-        StartCoroutine(StartFadeOut(0.01f));
+        StartCoroutine(StartFadeOut(secondsToWait));
     }
 
     IEnumerator StartFadeOut(float seconds)
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(seconds);
         while (image.color.a > 0)
         {
             var tempColor = image.color;
             tempColor.a -= 0.01f;
             image.color = tempColor; 
-            yield return new WaitForSeconds(seconds);
+            yield return new WaitForEndOfFrame();
         }
 
         Destroy(gameObject);

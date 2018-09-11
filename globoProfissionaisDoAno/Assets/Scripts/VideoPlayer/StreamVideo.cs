@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,7 +12,7 @@ public class StreamVideo : MonoBehaviour
 
     public VideoClip videoToPlay;
 
-    private VideoPlayer videoPlayer;
+    public VideoPlayer videoPlayer;
     private VideoSource videoSource;
 
     private AudioSource audioSource;
@@ -28,6 +29,9 @@ public class StreamVideo : MonoBehaviour
 
     public float barValue;
 
+    public bool continousPlay;
+
+    bool isDone;
 
     #region Video Controller
 
@@ -37,8 +41,46 @@ public class StreamVideo : MonoBehaviour
     public double Time { get { return videoPlayer.time; } }
     public ulong Duration { get { return (ulong)(videoPlayer.frameCount/videoPlayer.frameRate); } }
     public double NTime { get { return Time/Duration; } }
+    public bool IsDone { get { return isDone; } }
 
+    void OnEnable()
+    {
+        videoPlayer.loopPointReached += LoopPointReached;
+        videoPlayer.prepareCompleted += PreparedCompleted;
+        videoPlayer.seekCompleted += SeekCompleted;
+        videoPlayer.started += Started;
+    }
+
+    void OnDisable()
+    {
+        videoPlayer.loopPointReached -= LoopPointReached;
+        videoPlayer.prepareCompleted -= PreparedCompleted;
+        videoPlayer.seekCompleted -= SeekCompleted;
+        videoPlayer.started -= Started;
+    }
+
+    private void Started(VideoPlayer source)
+    {
+        //throw new NotImplementedException();
+    }
+
+    private void SeekCompleted(VideoPlayer source)
+    {
+        isDone = false;
+    }
+
+    private void PreparedCompleted(VideoPlayer source)
+    {
+        isDone = false;
+    }
+
+    private void LoopPointReached(VideoPlayer source)
+    {
+        isDone = true;
+    }
     #endregion
+
+    public List<string> nextVideo = new List<string>();
 
     // Use this for initialization
     void Start()
@@ -93,24 +135,24 @@ public class StreamVideo : MonoBehaviour
 
         //Set Video Total Timer
         SetTotalTimeUI();
-
-        //Play Video
-        //videoPlayer.Play();
-
-        //Play Sound
-        //audioSource.Play();
-
-        //Debug.Log("Playing Video");
     }
 
     private void Update()
     {
-        if (videoPlayer.isPlaying)
+        if (!isDone)
         {
             SetCurrentTimeUI();
 
             MovePlayhead(CalculatePlayedFraction());
         }
+
+        if (isDone)
+            NextVideo();
+    }
+
+    public void ToggleContinuosPlay(bool toggle)
+    {
+        continousPlay = toggle;
     }
 
     public void PauseVideo()
@@ -190,8 +232,22 @@ public class StreamVideo : MonoBehaviour
 
     double CalculatePlayedFraction()
     {
+        if (IsDone)
+            return 0;
+
         double fraction = (double)videoPlayer.frame / (double)videoPlayer.clip.frameCount;
         return fraction;
+    }
+
+    public void NextVideo()
+    {
+        if (nextVideo.Count <= 0)
+            return;
+
+        Debug.Log("nv = " + nextVideo.Count);
+
+        FindObjectOfType<VideoSelector>().FindVideoByHash(nextVideo[0].Split("_"[0]));
+        nextVideo.RemoveAt(0);
     }
 
     public void ChangeVideo(string hash)
